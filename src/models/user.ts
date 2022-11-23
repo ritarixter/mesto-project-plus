@@ -6,7 +6,7 @@ interface IUser {
   avatar: string,
 }
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
   name: {
     type: String,
     required: true,

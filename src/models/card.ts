@@ -8,7 +8,7 @@ interface ICard {
   createdAt: Date
 }
 
-const cardSchema = new Schema({
+const cardSchema = new Schema<ICard>({
   name: {
     type: String,
     required: true,
@@ -22,17 +22,17 @@ const cardSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'user',
-    required: true
+    required: true,
   },
   likes: {
     type: [Schema.Types.ObjectId],
     ref: 'likes',
-    default: []
+    default: [],
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 export default mongoose.model<ICard>('card', cardSchema);

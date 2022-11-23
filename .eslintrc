@@ -4,10 +4,9 @@
       "node": true
   },
   "extends": [
-      "airbnb-base",
-    "plugin:@typescript-eslint/recommended"
+      "airbnb-base"
   ],
-//    "parser": "@typescript-eslint/parser",
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
       "ecmaVersion": "latest",
       "sourceType": "module"
@@ -39,8 +38,6 @@
               "ts": "never"
           }
       ],
-    "no-console": "off",
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-    "consistent-return": "off"
-  }
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+  },
 }
