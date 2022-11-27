@@ -1,6 +1,6 @@
 import { CONFLICT_STATUS } from '../constants/status';
 
-class confictError extends Error {
+class ConfictError extends Error {
   statusCode: number;
 
   constructor(message: string) {
@@ -9,4 +9,4 @@ class confictError extends Error {
   }
 }
 
-export default confictError;
+export default ConfictError;
