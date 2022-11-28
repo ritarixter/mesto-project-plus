@@ -2,7 +2,7 @@ import { NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { secretKey } from '../constants/auth';
 import UnauthorizedError from '../errors/UnauthorizedErr';
-import { IRequestWithAuth, IUser } from '../types';
+import { IRequestWithAuth } from '../types';
 
 export default (req: IRequestWithAuth, next: NextFunction) => {
   const token = req.cookies.jwt;
