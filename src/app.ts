@@ -10,7 +10,8 @@ import cookieParser from 'cookie-parser';
 import auth from './middlewares/auth';
 import { requestLogger, errorLogger } from './middlewares/logger';
 import { errors } from 'celebrate';
-import validateLogin from 'validators/validateLogin';
+import validateLogin from './validators/validateLogin';
+import validateCreateUser from './validators/validateCreateUser';
 const { PORT = 3000 } = process.env;
 
 
@@ -24,11 +25,11 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(requestLogger)
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.post('/signin',validateLogin, login);
+app.post('/signup',validateCreateUser, createUser);
 app.use(auth as unknown as express.RequestHandler);
-app.use('/users',validateLogin, routerUser);
-app.use('/cards',validateLogin, routerCard);
+app.use('/users', routerUser);
+app.use('/cards', routerCard);
 app.use(errors());
 app.use(errorLogger);
 
