@@ -1,8 +1,7 @@
-import express, { NextFunction } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import routerUser from './routes/users';
 import routerCard from './routes/cards';
-import { Request, Response } from 'express';
 import path from 'path';
 import { IError } from './types';
 import { SERVER_ERROR_STATUS } from './constants/status';
@@ -11,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import auth from './middlewares/auth';
 import { requestLogger, errorLogger } from './middlewares/logger';
 import { errors } from 'celebrate';
+import validateLogin from 'validators/validateLogin';
 const { PORT = 3000 } = process.env;
 
 
@@ -27,8 +27,8 @@ app.use(requestLogger)
 app.post('/signin', login);
 app.post('/signup', createUser);
 app.use(auth as unknown as express.RequestHandler);
-app.use('/users', routerUser);
-app.use('/cards', routerCard);
+app.use('/users',validateLogin, routerUser);
+app.use('/cards',validateLogin, routerCard);
 app.use(errors());
 app.use(errorLogger);
 

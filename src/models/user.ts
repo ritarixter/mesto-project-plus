@@ -13,7 +13,7 @@ interface IUser {
 }
 
 interface IUserModel extends mongoose.Model<IUser> {
-  findUserByCredentials: (email: string, password: string) =>
+  findUserByCredentials: (email: string, password: string) => // eslint-disable-line
   Promise<mongoose.Document<unknown, any, IUser>>
 }
 

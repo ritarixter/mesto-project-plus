@@ -1,5 +1,5 @@
 import { JwtPayload } from "jsonwebtoken";
-import { NextFunction, Request, Response } from 'express';
+import { Request } from 'express';
 
 export interface IError extends Error {
   message: string;
@@ -13,9 +13,6 @@ export interface IUser extends JwtPayload {
 export interface IRequestMiddlewaresAuth extends Request {
   user: IUser;
 }
-
-export interface IRequestWithAuth<TBody = any> extends Request<any, any, TBody> {
-  user?:{
-    _id: string
-  }
+export interface IRequestWithAuth extends Request {
+  user?: string | JwtPayload;
 }
