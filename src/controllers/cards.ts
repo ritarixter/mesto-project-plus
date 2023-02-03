@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IRequestWithAuth } from '../types';
+import { IRequestMiddlewaresAuth } from '../types';
 import BadRequestError from '../errors/badRequestErr';
 import ForbiddenError from '../errors/forbiddenErr';
 import NotFoundError from '../errors/notFoundErr';
@@ -7,7 +7,7 @@ import { OK_STATUS } from '../constants/status';
 import Card from '../models/card';
 import { ERROR_ON_SERVER_MESSAGE } from '../constants/message';
 
-export const createCard = (req: IRequestWithAuth, res: Response, next:NextFunction) => {
+export const createCard = (req: IRequestMiddlewaresAuth, res: Response, next:NextFunction) => {
   const owner = req.user?._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner })
@@ -29,7 +29,7 @@ export const getCards = (req: Request, res: Response, next:NextFunction) => {
     .catch(next);
 };
 
-export const deleteCardById = (req: IRequestWithAuth, res: Response, next:NextFunction) => {
+export const deleteCardById = (req: IRequestMiddlewaresAuth, res: Response, next:NextFunction) => {
   const userId = req.user?._id;
   const { cardId } = req.params;
   Card.findOne({ _id: cardId })
@@ -47,7 +47,7 @@ export const deleteCardById = (req: IRequestWithAuth, res: Response, next:NextFu
     .catch(next);
 };
 
-export const likeCard = (req: IRequestWithAuth, res: Response, next:NextFunction) => {
+export const likeCard = (req: IRequestMiddlewaresAuth, res: Response, next:NextFunction) => {
   const { cardId } = req.params;
   const ownerId = req.user?._id;
   if (!ownerId) {
@@ -68,7 +68,7 @@ export const likeCard = (req: IRequestWithAuth, res: Response, next:NextFunction
     .catch(next);
 };
 
-export const dislikeCard = (req: IRequestWithAuth, res: Response, next:NextFunction) => {
+export const dislikeCard = (req: IRequestMiddlewaresAuth, res: Response, next:NextFunction) => {
   const { cardId } = req.params;
   const ownerId = req.user?._id;
   if (!ownerId) {

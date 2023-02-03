@@ -2,9 +2,9 @@ import { NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { secretKey } from '../constants/auth';
 import UnauthorizedError from '../errors/UnauthorizedErr';
-import { IRequestWithAuth } from '../types';
+import { IRequestMiddlewaresAuth, IUser } from '../types';
 
-export default (req: IRequestWithAuth, next: NextFunction) => {
+export default (req: IRequestMiddlewaresAuth, next: NextFunction) => {
   const token = req.cookies.jwt;
   if (!token) {
     throw new UnauthorizedError('Необходима авторизация');
@@ -15,6 +15,6 @@ export default (req: IRequestWithAuth, next: NextFunction) => {
   } catch {
     throw new UnauthorizedError('Необходима авторизация');
   }
-  req.user = payload;
+  req.user = payload as IUser;
   next();
 };
